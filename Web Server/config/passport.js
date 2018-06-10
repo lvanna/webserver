@@ -22,18 +22,18 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         console.log("deserializeUser id: "+id);
-        var obj = JSON.parse('{ "status": "2" , "message_title": "Success", "message_content": {"id":"a","username":"anna","password":"123456"}}'); 
+        // var obj = JSON.parse('{ "status": "2" , "message_title": "Success", "message_content": {"id":"a","username":"anna","password":"123456"}}'); 
 
-        // var data = JSON.parse('{ "id": "'+id+'"}');
-        // request({
-        //     url : "http://localhost:8888/api/selectid",
-        //     method : "POST",
-        //     json: true,
-        //     body : data
-        // }, function(error, response, body){
-        //     return done(null, body.message_content);
-        // });
-        return done(null, obj.message_content);
+        var data = JSON.parse('{ "id": "'+id+'"}');
+        request({
+            url : "http://localhost:8888/api/selectid",
+            method : "POST",
+            json: true,
+            body : data
+        }, function(error, response, body){
+            return done(null, body.message_content);
+        });
+        // return done(null, obj.message_content);
 
     });
 
@@ -78,13 +78,12 @@ module.exports = function(passport) {
     // by default, if there was no name, it would just be called 'local'
     
         passport.use(
-        'local-loginnn',
+        'local-login',
         new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'username',
             passwordField : 'password',
-            passReqToCallback : true // allows us to pass back the entire request to the callback
-             
+            passReqToCallback : true // allows us to pass back the entire request to the callback             
         },
         function(req, username, password, done) { // callback with email and password from our form
             var data = JSON.parse('{ "username": "'+username+'", "password": "'+password+'"}');
@@ -107,7 +106,7 @@ module.exports = function(passport) {
     );
 
     passport.use(
-      'local-login',
+      'local-loginnn',
       new LocalStrategy(
       // 這是 verify callback
       function(username, password, done) {
