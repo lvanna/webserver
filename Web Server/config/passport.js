@@ -26,7 +26,7 @@ module.exports = function(passport) {
 
         var data = JSON.parse('{ "id": "'+id+'"}');
         request({
-            url : "http://localhost:8888/api/selectid",
+            url : "http://LBApp-1287698808.ap-southeast-1.elb.amazonaws.com/api/selectid",
             method : "POST",
             json: true,
             body : data
@@ -54,7 +54,7 @@ module.exports = function(passport) {
         function(req, username, password, done) {
             var data = JSON.parse('{ "username": "'+username+'", "password": "'+password+'"}');
             request({
-                url : "http://localhost:8888/api/signup",
+                url : "http://LBApp-1287698808.ap-southeast-1.elb.amazonaws.com/api/signup",
                 method : "POST",
                 json: true,
                 body : data
@@ -88,7 +88,7 @@ module.exports = function(passport) {
         function(req, username, password, done) { // callback with email and password from our form
             var data = JSON.parse('{ "username": "'+username+'", "password": "'+password+'"}');
             request({
-                url : "http://localhost:8888/api/login",
+                url : "http://LBApp-1287698808.ap-southeast-1.elb.amazonaws.com/api/login",
                 method : "POST",
                 json: true,
                 body : data
